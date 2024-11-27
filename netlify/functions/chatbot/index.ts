@@ -43,11 +43,13 @@ export const handler: Handler = async (
 
       // get user profile
       const userId = msgEvent["source"]["userId"];
+      const text = msgEvent["message"]["text"];
       const userProfile = await getUserProfile(channelAccessToken, userId);
       // console.log(userProfile);
 
       // if message is talking to the bot
-      if (msgEvent["message"]["text"].startsWith("/bot")) {
+      if (text.startsWith("/bot")) {
+        const message = text.substring("/bot".length).trim();
         // reply message
         await replyMessage(
           channelAccessToken,
